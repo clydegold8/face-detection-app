@@ -28,7 +28,6 @@ function App() {
 
     const fileItem = document.getElementById("fileItem") as any;
     const files = fileItem?.files;
-    console.log(sampleVideo, files[0]);
     let urlBlob = URL.createObjectURL(files[0]);
     let frameloop: any;
     video.src = urlBlob;
@@ -36,8 +35,7 @@ function App() {
 
     cancelAnimationFrame(frameloop);
 
-    video.addEventListener("loadedmetadata", function (e) {
-      console.log(video.videoWidth, video.videoHeight);
+    video.addEventListener("loadedmetadata", function () {
       setCanvasSize({
         width: video.videoWidth,
         height: video.videoHeight,
@@ -126,12 +124,10 @@ function App() {
         saveChunks(event);
       };
 
-      recorder.onstop = (event) => {
-        console.log(event, "stop", chunks);
+      recorder.onstop = () => {
         if (chunks.length) {
           var blob = new Blob(chunks, { type: chunks[0].type });
           var vidURL = URL.createObjectURL(blob);
-          console.log(vidURL, "vidURL");
 
           const a = document.createElement("a");
           const node = document.createTextNode("Download Video");
@@ -148,7 +144,6 @@ function App() {
           //a.click();
         }
       };
-      console.log(chunks);
 
       let lastVideoTime = -1;
       const renderLoop = () => {
@@ -178,12 +173,11 @@ function App() {
                   faceLandMarks.push(faceMarks);
                 }
               });
-              console.log(index, "aaaaaaaaaa", faceLandMarks);
-              //drawingUtils.drawLandmarks(faceLandMarks, {
+              drawingUtils.drawLandmarks(faceLandMarks, {
               //radius: (data) => DrawingUtils.lerp(data.from!.z, -0.15, 0.1, 5, 1),
               //lineWidth: 10,
-              //fillColor: 'red'
-              //});
+              fillColor: 'red'
+              });
               //drawingUtils.drawConnectors(faceLandMarks, PoseLandmarker.POSE_CONNECTIONS);
             });
 
