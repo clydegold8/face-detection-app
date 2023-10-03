@@ -173,11 +173,11 @@ function App() {
                   faceLandMarks.push(faceMarks);
                 }
               });
-              drawingUtils.drawLandmarks(faceLandMarks, {
+              //drawingUtils.drawLandmarks(faceLandMarks, {
               //radius: (data) => DrawingUtils.lerp(data.from!.z, -0.15, 0.1, 5, 1),
               //lineWidth: 10,
-              fillColor: 'red'
-              });
+              //fillColor: 'red'
+              //});
               //drawingUtils.drawConnectors(faceLandMarks, PoseLandmarker.POSE_CONNECTIONS);
             });
 
