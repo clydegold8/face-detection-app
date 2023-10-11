@@ -70,7 +70,7 @@ function App() {
             delegate: "GPU",
           },
           runningMode: "VIDEO",
-          numPoses: 2,
+          numPoses: 5,
         });
       };
       await initializefaceDetector();
@@ -159,12 +159,14 @@ function App() {
           ).detections;
           setIsLoading(false);
           handleDetections(detections);
-          console.log(detections);
+
           // Detect faces marker using detectForVideo
           poseLandmarker.detectForVideo(video, startTimeMs, (result) => {
             ctx.save();
             ctx.clearRect(0, 0, ctx.width, ctx.height);
             ctx.beginPath();
+
+            console.log(result);
 
             result.landmarks.forEach((landmark, index) => {
               let faceLandMarks: NormalizedLandmark[] = [];
@@ -173,11 +175,11 @@ function App() {
                   faceLandMarks.push(faceMarks);
                 }
               });
-              //drawingUtils.drawLandmarks(faceLandMarks, {
-              //radius: (data) => DrawingUtils.lerp(data.from!.z, -0.15, 0.1, 5, 1),
+              drawingUtils.drawLandmarks(faceLandMarks, {
+              radius: (data) => DrawingUtils.lerp(data.from!.z, -0.15, 0.1, 5, 1),
               //lineWidth: 10,
               //fillColor: 'red'
-              //});
+              });
               //drawingUtils.drawConnectors(faceLandMarks, PoseLandmarker.POSE_CONNECTIONS);
             });
 
